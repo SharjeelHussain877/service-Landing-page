@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <p>
+      <img
+        src="https://www.onlygfx.com/wp-content/uploads/2017/12/grunge-yes-no-icon-1.png"
+        height="40px"
+        align="left"
+      />
+      <!-- Swift, Secure, and Seamless – Delivering Excellence Every Time! -->
+    </p>
+    <br>
+    <div id="svg_wrap"></div>
+
+    <h1>Sign up</h1>
+    <section>
+      <p>Personal information</p>
+      <input type="text" placeholder="first name" id="first-name" />
+      <input type="text" placeholder="last name" id="last-name" />
+      <input type="date" placeholder="Birthdate" id="BD" />
+      <select name="gender" id="gender">
+        <option value="male" selected>Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    </section>
+
+    <section>
+      <p>Address</p>
+      <input type="text" placeholder="Street address" id="address" />
+      <select name="country" id="country">
+        <option value="pakistan" selected>pakistan</option>
+        <option value="china">china</option>
+        <option value="bangladesh">bangladesh</option>
+      </select>
+      <input type="text" placeholder="city" id="city" />
+      <input type="text" placeholder="near famous place" id="famous-place" />
+    </section>
+
+    <section>
+      <p>Contact information</p>
+      <input type="text" placeholder="Email address" id="email" />
+      <input type="text" placeholder="Telephone or mobile" id="contact-num" />
+      <!-- <input type="text" placeholder="Mobile" /> -->
+    </section>
+
+    <section>
+      <p>Password</p>
+      <input type="password" placeholder="password" id="password"/>
+      <input type="password" placeholder="confirm password" id="confirm-password"/>
+    </section>
+
+    <!-- <section class="condition">
+      
+    </section> -->
+
+    <div class="button" id="prev">&larr; Previous</div>
+    <div class="button" id="next">Next &rarr;</div>
+    <div class="button" id="submit">sign up</div>
+
+    <h2 class="switch">Alredy have an account! <a href="login.html">Log in</a></h2>
+
+    <!-- Sweet Alert cdn  -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- jQuery cdn  -->
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+    ></script>
+    <!-- jQuery file link  -->
+    <script src="./js/jQuery.js"></script>
+    <!-- app.js link  -->
+    <script type="module" src="./js/signup.js"></script>
+    <script type="module" src="./firebase/firebase.config.js"></script>
+    <script type="module" src="./firebase/auth.js"></script>
+  </body>
+</html>
