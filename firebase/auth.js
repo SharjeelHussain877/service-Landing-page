@@ -1,5 +1,5 @@
 import { app } from "./firebase.config.js";
-import { saveDataAfterAuth } from "./firestore.js";
+import { saveData, getCurrentUserData } from "./firestore.js";
 import {
   getAuth,
   signOut,
@@ -7,16 +7,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  onSnapshot,
-  doc,
-  setDoc,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-const db = getFirestore(app);
+
 
 const auth = getAuth(app);
 
@@ -40,7 +31,7 @@ function checkAuth(
       const user = userCredential.user;
       console.log(user);
       if (userCredential) {
-        saveDataAfterAuth(
+        saveData(
           user.uid,
           name1,
           name2,
@@ -87,36 +78,17 @@ document.getElementById("logout")?.addEventListener("click", () => {
     });
 });
 
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     console.log(uid);
-    const q = query(collection(db, "users"), where("userId", "==", user.uid));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const cities = [];
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        let log = true;
-        if (log && location.pathname !== "/dashboard.html") {
-          location.href = "dashboard.html";
-          log = false;
-        }
-      });
-    });
+    getCurrentUserData(user.uid)
+      .then((success) => console.log("success", success))
+      .catch((err) => console.log("error", err));
   } else {
-    if (location.pathname !== "/login.html" && location.pathname !== "/signup.html") {
-      // Redirect to login or signup page if not already there
-      location.href = "../login.html";
-      // or location.href = "../signup.html";
-    }
+    // sign out
   }
 });
 
-// Add a new document in collection "cities"
-await setDoc(doc(db, "cities", "usa"), {
-  name: "UJirRrvKzBeTFYJkqCsvr2rD8b92",
-  state: "CA",
-  country: "USA",
-});
-
-export { checkAuth, signIn };
+export { checkAuth, signIn  };

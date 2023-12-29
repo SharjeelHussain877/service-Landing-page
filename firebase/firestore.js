@@ -1,12 +1,16 @@
 import { app } from "./firebase.config.js";
 import {
   getFirestore,
+  getDocs,
   collection,
   addDoc,
+  query,
+  where,
+  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 const db = getFirestore(app);
 
-async function saveDataAfterAuth(
+async function saveData(
   userId,
   name1,
   name2,
@@ -41,6 +45,22 @@ async function saveDataAfterAuth(
   }
 }
 
+const getCurrentUserData = async (userUid) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const q = query(collection(db, "users"), where("userId", "==", userUid));
+      const querySnapshot = await getDocs(q);
+      const userData = [];
+      querySnapshot.forEach((doc) => {
+        userData.push(doc.data());
+        userData[0].id = doc.id;
+      });
+      userData.join(", ");
+      resolve(userData[0]);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
-
-export { saveDataAfterAuth };
+export { saveData, getCurrentUserData };
