@@ -78,17 +78,22 @@ document.getElementById("logout")?.addEventListener("click", () => {
     });
 });
 
+var currentPageLink = window.location.pathname;
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     console.log(uid);
     getCurrentUserData(user.uid)
-      .then((success) => console.log("success", success))
+      .then((success) => {
+        if (currentPageLink === '/') {
+          console.log('Current page link is /');
+        }
+      })
       .catch((err) => console.log("error", err));
   } else {
     // sign out
   }
 });
 
-export { checkAuth, signIn  };
+export { checkAuth, signIn };
